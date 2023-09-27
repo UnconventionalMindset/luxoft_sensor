@@ -1,0 +1,18 @@
+# Compiled
+*.class
+
+# Log files
+*.log
+
+# Intellij IDEA
+.idea/
+.idea_modules/
+out/
+*.iml
+
+# Maven
+target/
+.classpath
+
+# SBT
+.bsp/
