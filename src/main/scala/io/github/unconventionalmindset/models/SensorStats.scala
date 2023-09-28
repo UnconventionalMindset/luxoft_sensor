@@ -15,9 +15,9 @@ case class SensorStats(
   def +(m: Measurement): SensorStats =
     SensorStats(
       m.id,
-      (this.min.toList ++ m.humidity.toList).reduceOption(_ min _),
-      (this.max.toList ++ m.humidity.toList).reduceOption(_ max _),
-      m.humidity.map(crtHumidity => humiditySum + crtHumidity).getOrElse(this.humiditySum),
+      Seq(this.min, m.humidity).collect { case Some(value) => value }.minOption,
+      Seq(this.max, m.humidity).max,
+      humiditySum + m.humidity.getOrElse(0),
       this.measurementCount + 1,
       this.failedCount + (if (m.humidity.isEmpty) 1 else 0)
     )
@@ -33,13 +33,3 @@ case class SensorStats(
 
 object SensorStats:
   def empty: SensorStats = SensorStats("", None, None, BigInt(0), 0, 0)
-  
-  def apply(measurement: Measurement): SensorStats =
-    new SensorStats(
-      measurement.id,
-      measurement.humidity,
-      measurement.humidity,
-      BigInt(0),
-      1,
-      if measurement.humidity.isEmpty then 1 else 0
-    )

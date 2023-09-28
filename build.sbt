@@ -8,7 +8,7 @@ lazy val root = project
     mainClass := Some("io.github.unconventionalmindset.main"),
     assemblyJarName := "humiditySensorStatistics.jar",
     name := "HumiditySensorsStatistics",
-    version := "1.0.0",
+    version := "1.0.1",
     scalaVersion := "3.3.1",
 
     resolvers ++= Seq(
